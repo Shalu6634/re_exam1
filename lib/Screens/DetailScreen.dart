@@ -96,6 +96,20 @@ class _DetailScreenState extends State<DetailScreen> {
           GestureDetector(onTap: () {
             setState(() {
               cartList.add(proList[selectedIndex]);
+              bool status=false;
+              int index=0;
+              for(int i=0;i<cartList.length;i++)
+              {
+                if(cartList[i]['name']==proList[selectedIndex]['name'])
+                {
+                  index=i;
+                  status=true;
+                }
+              }
+              if(status)
+              {
+                cartList[index]['qty']++;
+              }
             });
           },
             child: Container(
