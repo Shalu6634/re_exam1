@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
               setState(() {
                 for(int i=0;i<cartList.length;i++)
                 {
-
+                 qty=(qty+cartList[i]['qty']).toInt() as double;
                   amount=amount+cartList[i]['price']*cartList[i]['qty'];
 
                 }
@@ -100,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                cartList.removeAt(index);
+                                cartList.removeAt(selectedIndex);
                               });
                             },
                             child: Icon(
