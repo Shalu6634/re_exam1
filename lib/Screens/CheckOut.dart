@@ -15,7 +15,15 @@ class _CheckOutState extends State<CheckOut> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        leading:  IconButton(
+            onPressed: ()
+            {
+              qty=0;
+              amount=0;
+              total=0;
+              Navigator.of(context).pop();
+            },icon: Icon(Icons.check),
+        ),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 190),
           child: GestureDetector(onTap: (){
