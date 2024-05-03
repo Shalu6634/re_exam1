@@ -16,7 +16,14 @@ class _CheckOutState extends State<CheckOut> {
     return Scaffold(
       appBar: AppBar(
 
-        title: Text('ChecKOut',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 190),
+          child: GestureDetector(onTap: (){
+            setState(() {
+              Navigator.of(context).pushNamed('/check');
+            });
+          },child: Text('ChecKOut',style: TextStyle(fontWeight: FontWeight.bold),)),
+        ),
       ),
       body: Container(
         height: 200,

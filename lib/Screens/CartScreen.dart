@@ -1,9 +1,10 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:re_exam1/utils/global_var.dart';
+import 'package:flutter/widgets.dart';
 
 import '../utils/List.dart';
+import '../utils/global_var.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -17,121 +18,132 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 4,
-        title: Text(
-          'CartScreen',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        title: Text('cart screen'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ...List.generate(
-              cartList.length,
-              (index) => GestureDetector(
-                onTap: () {},
-                child: box2(
-                    img: proList[index]['img'],
-                    price: proList[selectedIndex]['price'],
-                    index: index,
-                    name: proList[selectedIndex]['name'],),
-              ),
+      body: Column(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                ...List.generate(
+                  cartList.length,
+                      (index) => cart(img: cartList[index]['img'], index: index),
+                )
+              ],
             ),
-            Container(
-              margin: EdgeInsets.all(40),
+          ),
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                for(int i=0;i<cartList.length;i++)
+                {
+
+                  amount=amount+cartList[i]['price']*cartList[i]['qty'];
+
+                }
+                total=(amount*13)/100+amount;
+
+
+                Navigator.of(context).pushNamed('/check');
+              },);
+            },
+            child: Container(
+              alignment: Alignment.center,
               height: 80,
               width: 200,
               decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(40)
+                color: Colors.blue.shade500,
+                borderRadius: BorderRadius.circular(25),
               ),
-              child: Center(child: GestureDetector(onTap: (){
-                setState(() {
-                  for(int i=0; i<cartList.length; i++)
-                    {
-                      qty=(qty+cartList[i]['qty'].toInt());
-                      amount=amount+cartList[i]['price']*cartList[i]['qty'];
-                    }
-                  total = (total*10)/amount;
-                  Navigator.of(context).pushNamed('/check');
-                });
-              },child: Text('CheckOut',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25),)),),
+              child: Text('Checkout',style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
             ),
-          ],
-        ),
+          ),
+
+        ],
       ),
     );
   }
-  Column box2(
-      {required String img,
-      required int price,
-      required int index,
-      required String name}) {
+
+  Column cart({required String img, required int index}) {
     return Column(
       children: [
-        Stack(
+        Row(
           children: [
             Container(
-              margin: EdgeInsets.all(30),
               height: 200,
-              width: 300,
+              width: 380,
+              margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.white,
-                image: DecorationImage(
-                  image: AssetImage(img),
-                ),
+                gradient: LinearGradient(colors: [
+                  Colors.blue.shade100,
+                  Colors.blue,
+                ]),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 140),
-                child: Container(
-                  height: 200,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                  ),
-                  child: Row(
+              child: Row(
+                children: [
+                  Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Text(
-                          name,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                      Container(
+                        height: 200,
+                        width: 200,
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(img),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 110, top: 20),
+                        padding: const EdgeInsets.only(left: 340, top: 160),
+                        child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                cartList.removeAt(index);
+                              });
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              size: 30,
+                              color: Colors.white,
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 250, top: 10),
                         child: Text(
-                          '${price}/-',
+                          cartList[index]['name'],
                           style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                             fontSize: 25,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            cartList.removeAt(selectedIndex);
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 30,left: 10),
-                          child: Icon(Icons.delete),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 250, top: 40),
+                        child: Text(
+                          cartList[index]['price'].toString() + '/-',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
+
                     ],
                   ),
-                ),
+
+                ],
+
               ),
+
             ),
+
           ],
         ),
+
       ],
     );
   }
