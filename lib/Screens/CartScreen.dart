@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
               setState(() {
                 for(int i=0;i<cartList.length;i++)
                 {
-                 qty=(qty+cartList[i]['qty']).toInt() as double;
+                 qty=(qty+cartList[i]['qty']).toInt();
                   amount=amount+cartList[i]['price']*cartList[i]['qty'];
 
                 }
