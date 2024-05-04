@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(20),
             child: GestureDetector(onTap: (){
               setState(() {
-                cartList.add(index);
+                cartList.add;
                 Navigator.of(context).pushNamed('/cart');
               });
             },
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  '${price}/-',
+                  '$price'+ ' /-',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
