@@ -54,7 +54,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ),
                     Text(
-                      proList[index]['price'].toString() + '/-',
+                      proList[selectedIndex]['price'].toString() + '/-',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -63,7 +63,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 100),
                       child: Text(
-                        proList[index]['name'],
+                        proList[selectedIndex]['name'],
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -96,6 +96,7 @@ class _DetailScreenState extends State<DetailScreen> {
           GestureDetector(onTap: () {
             setState(() {
               cartList.add(proList[selectedIndex]);
+              
               bool status=false;
               int index=0;
               for(int i=0;i<cartList.length;i++)
